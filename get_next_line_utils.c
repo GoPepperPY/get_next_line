@@ -12,16 +12,38 @@
 
 #include "get_next_line.h"
 
-char	*ft_strncpy(char* destiny, const char *source, size_t size)
+void    *ft_calloc(size_t       nmemb, size_t size)
 {
-	int	counter;
+	void    *pointer;
+
+	pointer = malloc(nmemb * size);
+	if (pointer == NULL)
+		return (pointer);
+	ft_bzero(pointer, size * nmemb);
+	return (pointer);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*temporary;
+ 	int	counter;
 
 	counter = 0;
-	while (source[counter] && size > counter)
+ 	temporary = (char *)s;
+ 	while (s[counter] != c)
 	{
-		destiny[counter] = source[counter];
+		if (s[counter] == '\0')
+			return (NULL);
+		temporary++;
 		counter++;
 	}
-	destiny[counter] = '\0';
-	return (destiny);
+	return (temporary);
+}
+
+size_t ft_strlen(const char *s)
+{
+	size_t	counter;
+	while (s[counter])
+		counter++;
+	return (counter);
 }

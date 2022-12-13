@@ -28,5 +28,7 @@
 # endif
 
 char    *ft_strchr(const char *s, int c);
+void    *ft_calloc(size_t       nmemb, size_t size);
+size_t ft_strlen(const char *s);
 
 #endif
