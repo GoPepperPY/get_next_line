@@ -6,13 +6,12 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:35:32 by goda-sil          #+#    #+#             */
-/*   Updated: 2022/12/12 15:48:21 by goda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:15:13 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -24,11 +23,21 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
+#  define BUFFER_SIZE 10
 # endif
 
-char    *ft_strchr(const char *s, int c);
-void    *ft_calloc(size_t       nmemb, size_t size);
-size_t ft_strlen(const char *s);
+// Utils
+char	*ft_strchr(const char *s, int c);
+void	*ft_calloc(size_t nmemb, size_t size);
+size_t	ft_strlen(const char *s);
+void	ft_bzero(void *s, size_t n);
+char	*ft_strjoin(char const *s1, char const *s2);
+
+
+// main file
+char    *read_file(int fd, char *storage);
+char    *clear(char *storage);
+char    *stash(char *storage);
+char    *get_next_line(int fd);
 
 #endif

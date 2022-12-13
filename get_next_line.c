@@ -6,7 +6,7 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:34:47 by goda-sil          #+#    #+#             */
-/*   Updated: 2022/12/12 17:06:51 by goda-sil         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:18:45 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,16 @@
 // fd(file descriptor) - abstract indicator to indicate a file
 // storage - it's where will store our temporary data
 
-static char	*storage;
-
-char	read_file(int fd, char	*storage)
+char	*read_file(int fd, char	*storage)
 {
 	char	*temporary;
 	int	read_bytes;
 	
-	if (ft_strchr(save, '\n'))
-		return (save);
+	if (ft_strchr(storage, '\n'))
+		return (storage);
 	temporary = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	read_bytes = 1;
-	while (!ft_strchr(storage, '\n'))
+	while (!ft_strchr(storage, '\n') && read_bytes > 0)
 	{
 		read_bytes = read(fd, temporary, BUFFER_SIZE);
 		if (read_bytes == -1)
@@ -34,12 +32,14 @@ char	read_file(int fd, char	*storage)
 			free(temporary);
 			return (NULL);
 		}
+		temporary[read_bytes] = '\0';
+		storage = ft_strjoin(storage, temporary);
 	}
-	free (buffer);
+	free (temporary);
 	return (storage);
 }
 
-char	clear(char *storage)
+char	*clear(char *storage)
 {
 	int	counter;
 	char	*line;
@@ -57,9 +57,7 @@ char	clear(char *storage)
 		counter++;
 	}
 	if (storage[counter] == '\n')
-	{
 		line[counter] == '\n';
-	}
 	return (line);
 }
 
@@ -70,7 +68,7 @@ char	*stash(char *storage)
 	char	*string;
 
 	counter_one = 0;
-	while (!storage[counter_one] && storage[counter_one] != '\n')
+	while (storage[counter_one] && storage[counter_one] != '\n')
 		counter_one++;
 	if (!storage[counter_one])
 	{
@@ -88,16 +86,17 @@ char	*stash(char *storage)
 
 char	*get_next_line(int fd)
 {
-	char	*line;
+	char		*line;
+	static char	*storage;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	storage = save(fd, storage);
-	if (storage == NULL)
+	storage = read_file(fd, storage);
+	if (!storage)
 		return (NULL);
 	line = clear(storage);
 	storage = stash(storage);
-	return (*line);
+	return (line);
 }
 
 int	main(void)
@@ -106,9 +105,9 @@ int	main(void)
 	int		counter;
 	char	*line;
 
-	file_descriptor = open("test.txt", O_RDONLY);
+	file_descriptor = open("test/test.txt", O_RDONLY);
 	counter = 1;
-	while ((line = get_next_line(file_descriptor)))
+	while ((line == get_next_line(file_descriptor)))
 	{
 		printf("line[%02d]: %s", counter, line);
 		counter++;
