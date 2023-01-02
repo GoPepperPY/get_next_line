@@ -6,7 +6,7 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:34:47 by goda-sil          #+#    #+#             */
-/*   Updated: 2022/12/13 16:18:45 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/02 15:45:41 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 // fd(file descriptor) - abstract indicator to indicate a file
 // storage - it's where will store our temporary data
+// when read returns 0 means that there is not more data
 
 char	*read_file(int fd, char	*storage)
 {
 	char	*temporary;
-	int	read_bytes;
-	
+	int		read_bytes;
+
 	if (ft_strchr(storage, '\n'))
 		return (storage);
 	temporary = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
@@ -34,14 +35,14 @@ char	*read_file(int fd, char	*storage)
 		}
 		temporary[read_bytes] = '\0';
 		storage = ft_strjoin(storage, temporary);
+		free(temporary);
 	}
-	free (temporary);
 	return (storage);
 }
 
 char	*clear(char *storage)
 {
-	int	counter;
+	int		counter;
 	char	*line;
 
 	counter = 0;
@@ -56,15 +57,14 @@ char	*clear(char *storage)
 		line[counter] = storage[counter];
 		counter++;
 	}
-	if (storage[counter] == '\n')
-		line[counter] == '\n';
+	line[counter] = storage[counter];
 	return (line);
 }
 
 char	*stash(char *storage)
 {
-	int	counter_one;
-	int	counter_two;
+	int		counter_one;
+	int		counter_two;
 	char	*string;
 
 	counter_one = 0;
@@ -75,12 +75,11 @@ char	*stash(char *storage)
 		free(storage);
 		return (NULL);
 	}
-	string = ft_calloc((ft_strlen(storage) - counter_one + 1),sizeof(char));
+	string = ft_calloc((ft_strlen(storage) - counter_one + 1), sizeof(char));
 	counter_one++;
 	counter_two = 0;
 	while (storage[counter_one])
 		string[counter_two++] = storage[counter_one++];
-	free(storage);
 	return (string);
 }
 
@@ -107,9 +106,10 @@ int	main(void)
 
 	file_descriptor = open("test/test.txt", O_RDONLY);
 	counter = 1;
-	while ((line == get_next_line(file_descriptor)))
+	while ((line = get_next_line(file_descriptor)))
 	{
-		printf("line[%02d]: %s", counter, line);
+		printf("line [%02d]: %s", counter, line);
+		free(line);
 		counter++;
 	}
 	close(file_descriptor);
