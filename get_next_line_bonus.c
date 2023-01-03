@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: goda-sil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/02 14:34:47 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/03 16:19:19 by goda-sil         ###   ########.fr       */
+/*   Created: 2023/01/03 16:49:25 by goda-sil          #+#    #+#             */
+/*   Updated: 2023/01/03 17:00:06 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,13 @@ char	*stash(char *storage)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*storage;
+	static char	**storage;
+	size_t		counter;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	storage = read_file(fd, storage);
+	while(storage[counter])
+		storage = read_file(fd, storage);
 	if (!storage)
 		return (NULL);
 	line = clear(storage);
