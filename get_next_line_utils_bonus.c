@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goda-sil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:49:46 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/03 16:49:47 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 16:46:11 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*ft_calloc(size_t	nmemb, size_t size)
 {
@@ -64,19 +64,16 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t		counter_one;
 	size_t		counter_two;
-	char				*pointer;
+	char		*pointer;
 	size_t		limit;
 
 	if (!s1)
-	{
-		s1 = malloc(sizeof(char));
-		s1[0] = '\0';
-	}
+		s1 = calloc(1, 1);
 	if (!s1 || !s2)
 		return (NULL);
 	counter_one = -1;
-	pointer = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1 * sizeof(char));
-	if (pointer == NULL)
+	pointer = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!pointer)
 		return (NULL);
 	if (s1)
 		while (s1[++counter_one] != '\0')
@@ -84,11 +81,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	counter_two = 0;
 	limit = ft_strlen(s2);
 	while (limit > counter_two)
-	{
-		pointer[counter_one] = s2[counter_two];
-		counter_one++;
-		counter_two++;
-	}
+		pointer[counter_one++] = s2[counter_two++];
 	pointer[counter_one] = '\0';
 	free(s1);
 	return (pointer);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goda-sil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:49:25 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/03 17:00:06 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:29:21 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 // fd(file descriptor) - abstract indicator to indicate a file
 // storage - it's where will store our temporary data
@@ -27,7 +27,6 @@ char	*read_file(int fd, char	*storage)
 	temporary = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	while (!ft_strchr(storage, '\n') && read_bytes > 0)
 	{
-		//temporary = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 		read_bytes = read(fd, temporary, BUFFER_SIZE);
 		if (read_bytes == -1)
 		{
@@ -35,7 +34,6 @@ char	*read_file(int fd, char	*storage)
 			return (NULL);
 		}
 		storage = ft_strjoin(storage, temporary);
-		//free(temporary);
 	}
 	free(temporary);
 	return (storage);
@@ -88,34 +86,40 @@ char	*stash(char *storage)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	**storage;
-	size_t		counter;
+	static char	*storage[FOPEN_MAX];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > FOPEN_MAX)
 		return (0);
-	while(storage[counter])
-		storage = read_file(fd, storage);
-	if (!storage)
+	storage[fd] = read_file(fd, storage[fd]);
+	if (!storage[fd])
 		return (NULL);
-	line = clear(storage);
-	storage = stash(storage);
+	line = clear(storage[fd]);
+	storage[fd] = stash(storage[fd]);
 	return (line);
 }
 
-int	main(void)
+int     main(void)
 {
-	int		file_descriptor;
-	int		counter;
-	char	*line;
+        int             fd1;
+	int		fd2;
+        int             i;
+        char    *line1;
+   	char	*line2;
 
-	file_descriptor = open("test/test.txt", O_RDONLY);
-	counter = 1;
-	while ((line = get_next_line(file_descriptor)))
-	{
-		printf("line [%02d]: %s", counter, line);
-		free(line);
-		counter++;
-	}
-	close(file_descriptor);
-	return (0);
+        fd1 = open("test/test.txt", O_RDONLY);
+        fd2 = open("test/test2.txt", O_RDONLY);
+        i = 1;
+        while (i <= 30)
+        {
+		line1 = get_next_line(fd1);
+	 	printf("line [%02d]: %s", i, line1);
+		free(line1);
+		line2 = get_next_line(fd2);
+		printf("line [%02d]: %s", i, line2);
+		free(line2);
+		i++;
+        }
+        close(fd1);
+  	close(fd2);
+        return (0);
 }

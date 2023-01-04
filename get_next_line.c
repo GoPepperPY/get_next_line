@@ -6,7 +6,7 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:34:47 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/03 16:19:19 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:23:23 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*read_file(int fd, char	*storage)
 	temporary = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	while (!ft_strchr(storage, '\n') && read_bytes > 0)
 	{
-		//temporary = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 		read_bytes = read(fd, temporary, BUFFER_SIZE);
 		if (read_bytes == -1)
 		{
@@ -35,7 +34,6 @@ char	*read_file(int fd, char	*storage)
 			return (NULL);
 		}
 		storage = ft_strjoin(storage, temporary);
-		//free(temporary);
 	}
 	free(temporary);
 	return (storage);
@@ -51,13 +49,10 @@ char	*clear(char *storage)
 		return (NULL);
 	while (storage[counter] && storage[counter] != '\n')
 		counter++;
-	line = ft_calloc((counter + 1), sizeof(char));
-	counter = 0;
-	while (storage[counter] && storage[counter] != '\n')
-	{
+	line = ft_calloc((counter + 2), sizeof(char));
+	counter = -1;
+	while (storage[++counter] && storage[counter] != '\n')
 		line[counter] = storage[counter];
-		counter++;
-	}
 	line[counter] = storage[counter];
 	return (line);
 }

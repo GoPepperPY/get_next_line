@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goda-sil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:49:38 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/03 16:49:39 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:32:04 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -27,7 +27,7 @@
 # endif
 
 // Utils
-char	*ft_strchr(const char *s, int c);
+char	*ft_strchr(char *s, int c);
 void	*ft_calloc(size_t nmemb, size_t size);
 size_t	ft_strlen(char *s);
 void	ft_bzero(void *s, size_t n);

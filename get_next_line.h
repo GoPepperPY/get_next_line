@@ -6,7 +6,7 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:35:32 by goda-sil          #+#    #+#             */
-/*   Updated: 2022/12/21 14:11:42 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:36:36 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@
 # endif
 
 // Utils
-char	*ft_strchr(const char *s, int c);
-void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strchr(char *s, int c);
+void	*ft_calloc(size_t	nmemb, size_t size);
 size_t	ft_strlen(char *s);
-void	ft_bzero(void *s, size_t n);
 char	*ft_strjoin(char *s1, char *s2);
 
 // main file
