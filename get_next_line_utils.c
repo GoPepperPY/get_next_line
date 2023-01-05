@@ -6,7 +6,7 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:35:11 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 17:41:40 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/05 15:12:38 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	*ft_calloc(size_t	nmemb, size_t size)
 {
-	char			*new;
-	size_t			i;
+	char			*pointer;
+	size_t			counter;
 	unsigned int	total;
 
-	i = 0;
+	counter = 0;
 	total = nmemb * size;
-	new = malloc(total);
-	if (!new)
+	pointer = malloc(total);
+	if (!pointer)
 		return (NULL);
 	while (total > 0)
 	{
-		new[i] = 0;
+		pointer[counter] = 0;
 		total--;
-		i++;
+		counter++;
 	}
-	return ((void *)new);
+	return ((void *)pointer);
 }
 
 char	*ft_strchr(char *s, int c)
@@ -67,7 +67,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	char		*pointer;
 
 	if (!s1)
-		s1 = malloc(sizeof(char));
+	{
+		s1 = malloc(1 * sizeof(char));
+		s1[0] = '\0';
+	}
 	if (!s1 || !s2)
 		return (NULL);
 	counter_one = -1;

@@ -6,7 +6,7 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:49:38 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 17:32:04 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/05 15:27:38 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 1000000
 # endif
 
 // Utils

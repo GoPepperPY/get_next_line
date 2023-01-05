@@ -6,7 +6,7 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:34:47 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/04 17:23:23 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:56:13 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	int		file_descriptor;
 	int		counter;
@@ -112,3 +112,5 @@ int	main(void)
 	close(file_descriptor);
 	return (0);
 }
+
+*/
