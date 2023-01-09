@@ -6,7 +6,7 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:34:47 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/05 16:56:13 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:00:53 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*read_file(int fd, char	*storage)
 			free(temporary);
 			return (NULL);
 		}
+		temporary[read_bytes] = '\0';
 		storage = ft_strjoin(storage, temporary);
 	}
 	free(temporary);
@@ -112,5 +113,4 @@ char	*get_next_line(int fd)
 	close(file_descriptor);
 	return (0);
 }
-
 */

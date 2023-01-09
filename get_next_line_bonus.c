@@ -6,7 +6,7 @@
 /*   By: goda-sil <goda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:49:25 by goda-sil          #+#    #+#             */
-/*   Updated: 2023/01/05 16:56:03 by goda-sil         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:06:35 by goda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*read_file(int fd, char	*storage)
 			free(temporary);
 			return (NULL);
 		}
+		temporary[read_bytes] = '\0';
 		storage = ft_strjoin(storage, temporary);
 	}
 	free(temporary);
@@ -50,12 +51,9 @@ char	*clear(char *storage)
 	while (storage[counter] && storage[counter] != '\n')
 		counter++;
 	line = ft_calloc((counter + 2), sizeof(char));
-	counter = 0;
-	while (storage[counter] && storage[counter] != '\n')
-	{
+	counter = -1;
+	while (storage[++counter] && storage[counter] != '\n')
 		line[counter] = storage[counter];
-		counter++;
-	}
 	line[counter] = storage[counter];
 	return (line);
 }
